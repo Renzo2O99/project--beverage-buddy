@@ -1,8 +1,8 @@
 import { useAppStore } from "../stores/useAppStore";
-import { Drink } from "../types/types";
+import { RecipeComponent } from "../types/types";
 
 interface DrinkCardProps {
-  drink: Drink;
+  drink: RecipeComponent
 }
 
 export const DrinkCard = ({ drink }: DrinkCardProps) => {
@@ -12,7 +12,8 @@ export const DrinkCard = ({ drink }: DrinkCardProps) => {
     backgroundPosition: 'center center',
   };
 
-  const { searchFilters, selectRecipe } = useAppStore();
+  const { selectRecipe, searchFilters } = useAppStore();
+  const verify = drink.strCategory ? drink.strCategory : searchFilters.category;
 
   return (
     <div className="flex flex-col items-center justify-center w-full max-w-sm mx-auto overflow-hidden">
@@ -24,7 +25,7 @@ export const DrinkCard = ({ drink }: DrinkCardProps) => {
         <h3 className="py-4 px-2 font-bold tracking-wide text-center text-gray-800 uppercase dark:text-white">{drink.strDrink}</h3>
 
         <div className="flex-grow flex flex-col justify-between p-4 bg-gray-200 dark:bg-gray-700">
-          <span className="font-bold text-gray-800 dark:text-gray-200 text-center">{searchFilters.category}</span>
+          <span className="font-bold text-gray-800 dark:text-gray-200 text-center">{verify}</span>
           <button onClick={() => selectRecipe(drink.idDrink)} 
           className="mx-auto mt-4 w-4/5 px-4 py-3 text-xs font-semibold text-white uppercase transition-all duration-300 transform bg-gray-800 rounded hover:bg-gray-700 dark:hover:bg-gray-600 focus:bg-gray-700 dark:focus:bg-gray-600 focus:outline-none lg:hover:scale-110">
             Leer más...
